@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="utf8">
+    <title>2d orbit animation</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+    <body>
+        <h1>Orbits!</h1>
+        <canvas id="canvas" width="800" height="450"></canvas>
+    </body>
+    <script>
+        const TAU = 2 * Math.PI;
+        const epsilon = 0.0001;
+        const W = 800;
+        const H = 450;
+        // Characteristics of the ellipse
+        const cx = W/2;
+        const cy = H/2;
+        const a = 120;
+        const b = 100;
+        const c = Math.sqrt(a*a - b*b);
+        const e = c / a;
+        const phi = Math.PI / 6;
+
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+
+        const drawFrame = (nu) => {
+            ctx.clearRect(0, 0, W, H);
+            
+            ctx.beginPath();
+            
+            const get_r = (theta) => {
+                const numerator = 1 - e*e;
+                const denominator = 1 + e*Math.cos(theta);
+                return a * numerator / denominator;
+            }
+            
+            ctx.ellipse(cx, cy, a, b, phi, 0, TAU);
+            ctx.stroke();
+            ctx.closePath();
+            
+            ctx.beginPath();
+            ctx.fillStyle = 'darkorange';
+            const Fx = cx + c * Math.cos(phi);
+            const Fy = cy + c * Math.sin(phi);
+            ctx.arc(Fx, Fy, 16, 0, TAU);
+            ctx.fill();
+            ctx.closePath();
+            
+            ctx.beginPath();
+            ctx.fillStyle = 'black';
+            
+            // const theta = Math.PI/2;
+            const r = get_r(nu);
+            ctx.arc(Fx + r * Math.cos(phi + nu), Fy + r * Math.sin(phi + nu), 4, 0, TAU);
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        const calculateEccentricAnomaly = (M) => {
+            let estimate = M;
+            for (let i=0; i<10; i++) {
+                let old = estimate;
+                estimate = estimate - (M + e * Math.sin(estimate) - estimate) / (e * Math.cos(estimate) - 1);
+                if (Math.abs(estimate - old) < epsilon) {
+                    break;
+                }
+            }
+            return estimate % TAU;
+        }
+
+        const factor = Math.sqrt((1+e) / (1-e));
+        const calculateTrueAnomaly = (E) => {
+            return 2 * Math.atan(factor * Math.tan(E/2));
+            // const y = Math.sqrt(1 - e*e) * Math.sin(E);
+            // const x = Math.cos(E) - e;
+            // return Math.atan2(y, x);
+        };
+
+        let M = 0;
+        const startAnimation = () => {
+            const step = () => {
+                const E = calculateEccentricAnomaly(M);
+                const nu = calculateTrueAnomaly(E);
+                drawFrame(nu);
+                M += 0.02;
+                window.requestAnimationFrame(step);
+            }
+            window.requestAnimationFrame(step);
+        }
+
+        startAnimation();
+    </script>
+</html>
