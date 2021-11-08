@@ -44,16 +44,18 @@ let createOrbit;
             cy: fy - c * Math.sin(tilt),
             tilt,
             t: a * Math.sqrt(a/K),
-            getR: (theta) => {
-                const numerator = 1 - e*e;
-                const denominator = 1 + e*Math.cos(theta);
-                return a * numerator / denominator;
+            getR: function (theta) {
+                const numerator = 1 - this.e*this.e;
+                const denominator = 1 + this.e*Math.cos(theta);
+                return this.a * numerator / denominator;
             },
-            calculateEccentricAnomaly: (M) => {
+            calculateEccentricAnomaly: function (M) {
                 let estimate = M;
                 for (let i=0; i<10; i++) {
                     let old = estimate;
-                    estimate = estimate - (M + e * Math.sin(estimate) - estimate) / (e * Math.cos(estimate) - 1);
+                    const fEstimate = M + this.e * Math.sin(estimate) - estimate;
+                    const dfEstimate = this.e * Math.cos(estimate) - 1;
+                    estimate = estimate - fEstimate / dfEstimate;
                     if (Math.abs(estimate - old) < epsilon) {
                         break;
                     }
@@ -65,6 +67,16 @@ let createOrbit;
                 // const y = Math.sqrt(1 - e*e) * Math.sin(E);
                 // const x = Math.cos(E) - e;
                 // return Math.atan2(y, x);
+            },
+            mutate: function (newA, newE, newTilt) {
+                this.a = newA || this.a;
+                this.e = newE || this.e;
+                this.tilt = newTilt || this.tilt;
+                this.c = this.a * this.e;
+                this.b = Math.sqrt(this.a*this.a - this.c * this.c);
+
+                this.cx = fx - this.c * Math.cos(this.tilt);
+                this.cy = fy - this.c * Math.sin(this.tilt);
             },
         }
     }
