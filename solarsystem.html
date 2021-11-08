@@ -28,7 +28,9 @@
                 <canvas id="canvas" width="1000" height="1000"></canvas>
             </div>
             <div id="side-panel">
-                Years: <span id="year">0</span>
+                Years: <span id="year">0</span><br>
+
+                <input id="scale-slider" type="range" min="1" max="100">
             </div>
         </div>
     </body>
@@ -53,21 +55,41 @@
             counterBox.innerHTML = round(dt / earthOrbit.t, 3);
             
             window.setTimeout(setYearCounter, 30);
-            // window.requestAnimationFrame(setYearCounter);
         }
         window.setTimeout(setYearCounter, 30);
-        // window.requestAnimationFrame(setYearCounter);
 
+        document.getElementById('scale-slider').oninput = (event) => {
+            scale(event.target.valueAsNumber / 10);
+        };
 
-        startAnimation([
-            createOrbit(  57.9 * GmPerPx, 0.206, 1.35), // Mercury
-            createOrbit( 107.4 * GmPerPx, 0.006, 2.30), // Venus
-            earthOrbit,
-            createOrbit( 227.9 * GmPerPx, 0.093, 5.87), // Mars
-            createOrbit( 778.6 * GmPerPx, 0.049, 0.25), // Jupiter
-            createOrbit(1433.5 * GmPerPx, 0.057, 1.62), // Saturn
-            createOrbit(2871.0 * GmPerPx, 0.047, 2.98), // Uranus
-            createOrbit(4500.0 * GmPerPx, 0.009, 0.78), // Neptune
-        ]);
+        const semiMajorAxes = {
+            mercury: 57.9 * GmPerPx,
+            venus: 107.4 * GmPerPx,
+            earth: 149.6 * GmPerPx,
+            mars: 227.9 * GmPerPx,
+            jupiter: 778.6 * GmPerPx,
+            saturn: 1433.5 * GmPerPx,
+            uranus: 2871.0 * GmPerPx,
+            neptune: 4500.0 * GmPerPx,
+        };
+
+        const orbits = {
+            mercury: createOrbit(semiMajorAxes.mercury, 0.206, 1.35),
+            venus: createOrbit(semiMajorAxes.venus, 0.006, 2.30),
+            earth: earthOrbit,
+            mars: createOrbit(semiMajorAxes.mars, 0.093, 5.87),
+            jupiter: createOrbit(semiMajorAxes.jupiter, 0.049, 0.25),
+            saturn: createOrbit(semiMajorAxes.saturn, 0.057, 1.62),
+            uranus: createOrbit(semiMajorAxes.uranus, 0.047, 2.98),
+            neptune: createOrbit(semiMajorAxes.neptune, 0.009, 0.78),
+        };
+
+        function scale(x) {
+            Object.entries(orbits).forEach(([key, value]) => {
+                value.mutate(semiMajorAxes[key] * x);
+            });
+        }
+
+        startAnimation(Object.values(orbits));
     </script>
 </html>
