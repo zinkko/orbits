@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="utf8">
+    <title>2d solar system orbit animation</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+        </style>
+    <body>
+        <h1>Orbits!</h1>
+        <canvas id="canvas" width="1600" height="900"></canvas>
+    </body>
+    <script src="main.js"></script>
+    <script>
+        startAnimation([
+            createOrbit(  57.9, 0.206, 1.35), // Mercury
+            createOrbit( 107.4, 0.006, 2.30), // Venus
+            createOrbit( 149.6, 0.017, 1.80), // Earth
+            createOrbit( 227.9, 0.093, 5.87), // Mars
+            createOrbit( 778.6, 0.049, 0.25), // Jupiter
+            createOrbit(1433.5, 0.057, 1.62), // Saturn
+            createOrbit(2871.0, 0.047, 2.98), // Uranus
+            createOrbit(4500.0, 0.009, 0.78), // Neptune
+        ]);
+    </script>
+</html>
