@@ -2,8 +2,35 @@
 <html>
     <meta charset="utf8">
     <title>2d solar system orbit animation</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #root {
+            display: flex;
+            height: 100vh;
+        }
+
+        #canvas-container {
+            border-right: 3px solid black;
+            width: fit-content;
+        }
+
+        #side-panel {
+            margin: 16px;
+        }
+    </style>
     <body>
-        <canvas id="canvas" width="1760" height="990"></canvas>
+        <div id="root">
+
+            <div id="canvas-container">
+                <canvas id="canvas" width="1000" height="1000"></canvas>
+            </div>
+            <div id="side-panel">
+                Years: <span id="year">0</span>
+            </div>
+        </div>
     </body>
     <script src="main.js"></script>
     <script>
@@ -14,10 +41,28 @@
             planetSize: 3,
         });
 
+        const round = (f, precision) => {
+            return Math.trunc(f * Math.pow(10, precision)) / Math.pow(10, precision);
+        }
+
+        const earthOrbit = createOrbit(149.6 * GmPerPx, 0.017, 1.80); // Earth
+        const counterBox = document.getElementById('year');
+        const t0 = performance.now(); // not exactly same as animation, but close enough
+        const setYearCounter = () => {
+            const dt = (performance.now() - t0) / 1000;
+            counterBox.innerHTML = round(dt / earthOrbit.t, 3);
+            
+            window.setTimeout(setYearCounter, 30);
+            // window.requestAnimationFrame(setYearCounter);
+        }
+        window.setTimeout(setYearCounter, 30);
+        // window.requestAnimationFrame(setYearCounter);
+
+
         startAnimation([
             createOrbit(  57.9 * GmPerPx, 0.206, 1.35), // Mercury
             createOrbit( 107.4 * GmPerPx, 0.006, 2.30), // Venus
-            createOrbit( 149.6 * GmPerPx, 0.017, 1.80), // Earth
+            earthOrbit,
             createOrbit( 227.9 * GmPerPx, 0.093, 5.87), // Mars
             createOrbit( 778.6 * GmPerPx, 0.049, 0.25), // Jupiter
             createOrbit(1433.5 * GmPerPx, 0.057, 1.62), // Saturn
