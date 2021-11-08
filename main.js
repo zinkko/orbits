@@ -1,14 +1,23 @@
+let setConfig;
 let startAnimation;
 let createOrbit;
 
 (function () {
     const TAU = 2 * Math.PI;
     const epsilon = 0.0001;
-    const K = 40000;
+    let K = 40000;
+    let starSize = 16;
+    let planetSize = 4;
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     const W = canvas.width;
     const H = canvas.height;
+
+    setConfig = (newConfig) => {
+        if (newConfig.K) K = newConfig.K;
+        if (newConfig.planetSize) planetSize = newConfig.planetSize;
+        if (newConfig.starSize) starSize = newConfig.starSize;
+    }
 
     /**
      * Calculate ellipse parameters for the orbit. Orbit is centered around the main body at the center of the screen
@@ -63,7 +72,7 @@ let createOrbit;
         ctx.clearRect(0, 0, W, H);
         ctx.beginPath();
         ctx.fillStyle = 'darkorange';
-        ctx.arc(W/2, H/2, 16, 0, TAU);
+        ctx.arc(W/2, H/2, starSize, 0, TAU);
         ctx.fill();
         ctx.closePath();
         
@@ -83,7 +92,7 @@ let createOrbit;
         ctx.beginPath();
         ctx.fillStyle = 'black';
         const r = orbit.getR(nu);
-        ctx.arc(orbit.fx + r * Math.cos(orbit.tilt + nu), orbit.fy + r * Math.sin(orbit.tilt + nu), 4, 0, TAU);
+        ctx.arc(orbit.fx + r * Math.cos(orbit.tilt + nu), orbit.fy + r * Math.sin(orbit.tilt + nu), planetSize, 0, TAU);
         ctx.fill();
         ctx.closePath();
     }
