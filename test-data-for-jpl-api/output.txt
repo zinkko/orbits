@@ -1,0 +1,114 @@
+API VERSION: 1.0
+API SOURCE: NASA/JPL Horizons API
+
+
+
+*******************************************************************************
+Ephemeris / API_USER Sat Nov  6 07:23:07 2021 Pasadena, USA      / Horizons
+*******************************************************************************
+Target body name: Jupiter (599)                   {source: jup365_merged}
+Center body name: Mars (499)                      {source: mar097}
+Center-site name: BODY CENTER
+*******************************************************************************
+Start time      : A.D. 2021-Jan-01 10:00:00.0000 TDB
+Stop  time      : A.D. 2021-Jan-02 00:00:00.0000 TDB
+Step-size       : 60 minutes
+*******************************************************************************
+Center geodetic : 0.00000000,0.00000000,0.0000000 {W-lon(deg),Lat(deg),Alt(km)}
+Center cylindric: 0.00000000,0.00000000,0.0000000 {W-lon(deg),Dxy(km),Dz(km)}
+Center radii    : 3396.2 x 3396.2 x 3376.2 km     {Equator, meridian, pole}    
+Output units    : KM-S
+Output type     : GEOMETRIC cartesian states
+Output format   : 6 (LT, range, and range-rate)
+Reference frame : Ecliptic of J2000.0
+*******************************************************************************
+JDTDB
+   LT    RG    RR
+*******************************************************************************
+$$SOE
+2459215.916666667 = A.D. 2021-Jan-01 10:00:00.0000 TDB 
+ LT= 2.984165087494813E+03 RG= 8.946301866578549E+08 RR= 1.602499302716946E+01
+2459215.958333333 = A.D. 2021-Jan-01 11:00:00.0000 TDB 
+ LT= 2.984357496804571E+03 RG= 8.946878695177695E+08 RR= 1.602103758082715E+01
+2459216.000000000 = A.D. 2021-Jan-01 12:00:00.0000 TDB 
+ LT= 2.984549858518089E+03 RG= 8.947455381086903E+08 RR= 1.601706569117899E+01
+2459216.041666667 = A.D. 2021-Jan-01 13:00:00.0000 TDB 
+ LT= 2.984742172434441E+03 RG= 8.948031923703805E+08 RR= 1.601307684333100E+01
+2459216.083333333 = A.D. 2021-Jan-01 14:00:00.0000 TDB 
+ LT= 2.984934438348822E+03 RG= 8.948608322414428E+08 RR= 1.600907090891755E+01
+2459216.125000000 = A.D. 2021-Jan-01 15:00:00.0000 TDB 
+ LT= 2.985126656057224E+03 RG= 8.949184576607158E+08 RR= 1.600504814600848E+01
+2459216.166666667 = A.D. 2021-Jan-01 16:00:00.0000 TDB 
+ LT= 2.985318825360984E+03 RG= 8.949760685686421E+08 RR= 1.600100918480235E+01
+2459216.208333333 = A.D. 2021-Jan-01 17:00:00.0000 TDB 
+ LT= 2.985510946071146E+03 RG= 8.950336649085743E+08 RR= 1.599695500792139E+01
+2459216.250000000 = A.D. 2021-Jan-01 18:00:00.0000 TDB 
+ LT= 2.985703018012552E+03 RG= 8.950912466280012E+08 RR= 1.599288692623662E+01
+2459216.291666667 = A.D. 2021-Jan-01 19:00:00.0000 TDB 
+ LT= 2.985895041027617E+03 RG= 8.951488136796801E+08 RR= 1.598880655103452E+01
+2459216.333333333 = A.D. 2021-Jan-01 20:00:00.0000 TDB 
+ LT= 2.986087014979767E+03 RG= 8.952063660226671E+08 RR= 1.598471576633301E+01
+2459216.375000000 = A.D. 2021-Jan-01 21:00:00.0000 TDB 
+ LT= 2.986278939756558E+03 RG= 8.952639036232522E+08 RR= 1.598061670065489E+01
+2459216.416666667 = A.D. 2021-Jan-01 22:00:00.0000 TDB 
+ LT= 2.986470815272350E+03 RG= 8.953214264557618E+08 RR= 1.597651168105401E+01
+2459216.458333333 = A.D. 2021-Jan-01 23:00:00.0000 TDB 
+ LT= 2.986662641470333E+03 RG= 8.953789345031638E+08 RR= 1.597240317009252E+01
+2459216.500000000 = A.D. 2021-Jan-02 00:00:00.0000 TDB 
+ LT= 2.986854418323727E+03 RG= 8.954364277574304E+08 RR= 1.596829369554951E+01
+$$EOE
+*******************************************************************************
+ 
+TIME
+
+  Barycentric Dynamical Time ("TDB" or T_eph) output was requested. This
+continuous relativistic coordinate time is equivalent to the relativistic
+proper time of a clock at rest in a reference frame comoving with the
+solar system barycenter but outside the system\'s gravity well. It is the
+independent variable in the solar system relativistic equations of motion.
+
+  TDB runs at a uniform rate of one SI second per second and is independent
+of irregularities in Earth\'s rotation.
+
+  Calendar dates prior to 1582-Oct-15 are in the Julian calendar system.
+Later calendar dates are in the Gregorian system.
+
+REFERENCE FRAME AND COORDINATES
+
+  Ecliptic at the standard reference epoch
+
+    Reference epoch: J2000.0
+    X-Y plane: adopted Earth orbital plane at the reference epoch
+               Note: IAU76 obliquity of 84381.448 arcseconds wrt ICRF X-Y plane
+    X-axis   : ICRF
+    Z-axis   : perpendicular to the X-Y plane in the directional (+ or -) sense
+               of Earth\'s north pole at the reference epoch.
+
+  Symbol meaning:
+
+    JDTDB    Julian Day Number, Barycentric Dynamical Time
+      LT     One-way down-leg Newtonian light-time (sec)
+      RG     Range; distance from coordinate center (km)
+      RR     Range-rate; radial velocity wrt coord. center (km/sec)
+
+ABERRATIONS AND CORRECTIONS
+
+ Geometric state vectors have NO corrections or aberrations applied.
+
+Computations by ...
+
+    Solar System Dynamics Group, Horizons On-Line Ephemeris System
+    4800 Oak Grove Drive, Jet Propulsion Laboratory
+    Pasadena, CA  91109   USA
+
+    General site: https://ssd.jpl.nasa.gov/
+    Mailing list: https://ssd.jpl.nasa.gov/email_list.html
+    System news : https://ssd.jpl.nasa.gov/horizons/news.html
+    User Guide  : https://ssd.jpl.nasa.gov/horizons/manual.html
+    Connect     : browser        https://ssd.jpl.nasa.gov/horizons/app.html#/x
+                  API            https://ssd-api.jpl.nasa.gov/doc/horizons.html
+                  command-line   telnet ssd.jpl.nasa.gov 6775
+                  e-mail/batch   https://ssd.jpl.nasa.gov/ftp/ssd/hrzn_batch.txt
+                  scripts        https://ssd.jpl.nasa.gov/ftp/ssd/SCRIPTS
+    Author      : Jon.D.Giorgini@jpl.nasa.gov
+*******************************************************************************
