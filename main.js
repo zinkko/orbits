@@ -1,5 +1,6 @@
 let setConfig;
 let startAnimation;
+let stopAnimation;
 let createOrbit;
 
 (function () {
@@ -97,14 +98,26 @@ let createOrbit;
         ctx.closePath();
     }
 
-    let t0 = performance.now();
+    let isPlaying = true;
+    let animationTime = 0;
+
     startAnimation = (orbits) => {
+        isPlaying = true;
+        let last = performance.now();
         const step = () => {
             // seconds since start
-            const dt = (performance.now() - t0) / 1000;
-            draw(dt, orbits);
-            window.requestAnimationFrame(step);
+            const t = performance.now();
+
+            const dt = (t - last) / 1000;
+            last = t;
+            animationTime += dt;
+            draw(animationTime, orbits);
+            if (isPlaying) window.requestAnimationFrame(step);
         }
         window.requestAnimationFrame(step);
+    }
+
+    stopAnimation = () => {
+        isPlaying = false;
     }
 })();

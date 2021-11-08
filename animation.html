@@ -10,11 +10,30 @@
     <body>
         <h1>Orbits!</h1>
         <canvas id="canvas" width="800" height="450"></canvas>
+        <div>
+            <button id="play-button">Pause</button>
+        </div>
     </body>
     <script src="main.js"></script>
     <script>
         const o1 = createOrbit(120, 0.5, Math.PI/6);
         const o2 = createOrbit(140, 0.7, 0.1);
-        startAnimation([o1, o2]);
+        const orbits = [o1, o2];
+
+        let playing = true;
+        const button = document.getElementById('play-button')
+        
+        button.onclick = (e) => {
+            if (playing) {
+                stopAnimation();
+                button.innerText = "Resume";
+            } else {
+                startAnimation(orbits);
+                button.innerText = "Pause";
+            }
+            playing = !playing;
+        };
+
+        startAnimation(orbits);
     </script>
 </html>
