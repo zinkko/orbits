@@ -30,7 +30,7 @@
             <div id="side-panel">
                 Years: <span id="year">0</span><br>
 
-                <input id="scale-slider" type="range" min="1" max="100">
+                <input id="scale-slider" type="range" min="5" max="100" value="10" />
             </div>
         </div>
     </body>
@@ -85,6 +85,11 @@
         };
 
         function scale(x) {
+            setConfig({
+                starSize: 1.6 * x + 1,
+                planetSize: 0.3 * x + 2,
+            });
+
             Object.entries(orbits).forEach(([key, value]) => {
                 value.mutate(semiMajorAxes[key] * x);
             });
