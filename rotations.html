@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="utf8">
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"> 
+    </head>
+    <title>2d orbit animation</title>
+    <style>
+        * {
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        canvas {
+            border: 1px solid black;
+        }
+
+        #legend {
+            position: absolute;
+            left: 1032px;
+            top: 80px;
+        }
+
+        table {
+            table-layout: fixed;
+            border-collapse: collapse;
+
+            border: 1px solid black;
+        }
+
+        td, th {
+            border-left: solid 1px black;
+            padding: 0 4px;
+        }
+
+        td:first-child, th:first-child {
+            border-left: none;
+        }
+
+        thead {
+            border-bottom: 1px solid black;
+            text-align: left;
+        }
+
+        .dot {
+            border-radius: 100%;
+            width: 8px;
+            height: 8px;
+        }
+        .black {
+            background-color: black;
+        }
+        .blue {
+            background-color: blue;
+        }
+        .green {
+            background-color: green;
+        }
+
+        .na {
+            color: gray;
+        }
+
+        .sym {
+            font-family: 'Noto Serif', serif;
+        }
+
+
+        li {
+            font-family: 'Noto Serif', serif;
+        }
+
+        </style>
+    <body>
+        <h1>Keplerian Orbital Mechanics</h1>
+        <canvas id="canvas" width="1000" height="700"></canvas>
+        <div>
+            <button id="play-button">Pause</button>
+        </div>
+        <div id="legend">
+            <h3>Anomalies</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>thing</th>
+                        <th>symbol</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        <div class="dot black"></div>
+                    </td>
+                    <td>True Anomaly</td>
+                    <td class="sym">ν</td>
+                </tr>
+                <tr>
+                    <td><div class="dot blue"></div></td>
+                    <td>Mean Anomaly</td>
+                    <td class="sym">M</td>
+                </tr>
+                <tr>
+                    <td><div class="dot green"></div></td>
+                    <td>Eccentric Anomaly</td>
+                    <td class="sym">E</td>
+                </tr>
+            </table>
+            <h3>Orbital characteristics</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>symbol</th>
+                        <th>thing</th>
+                        <th>value</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td class="sym">a</td>
+                    <td>semi-major axis</td>
+                    <td>300</td>
+                </tr>
+                <tr>
+                    <td class="sym">ε</td>
+                    <td>eccentricity</td>
+                    <td>0.7</td>
+                </tr>
+                <tr class="na">
+                    <td class="sym">i</td>
+                    <td>inclination</td>
+                    <td>N/A</td>
+                </tr>
+                <tr class="na">
+                    <td class="sym">Ω</td>
+                    <td>longitude of ascending node</td>
+                    <td>N/A</td>
+                </tr>
+                <tr>
+                    <td class="sym">ω</td>
+                    <td>argument of periapse</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td class="sym">ϖ</td>
+                    <td>longitude periapse</td>
+                    <td>0</td>
+                </tr>
+            </table>
+            <h3>Kepler's Laws</h3>
+            <ol type="I">
+                <li>The orbit is an ellipse, with the sun at one focal point</li>
+                <li>The swept area in time t is constant</li>
+                <li>a<sup>3</sup> / T<sup>2</sup> is constant</li>
+            </ol>
+            <h3>Kepler's Equation</h3>
+            <p class="sym">M = E – ε·sin(E)</p>
+        </div>
+    </body>
+    <script src="rotations.js"></script>
+    <script>
+        let playing = true;
+        const button = document.getElementById('play-button')
+        
+        button.onclick = (e) => {
+            if (playing) {
+                rotations.stopAnimation();
+                button.innerText = "Resume";
+            } else {
+                rotations.startAnimation();
+                button.innerText = "Pause";
+            }
+            playing = !playing;
+        };
+
+        rotations.startAnimation();
+    </script>
+</html>
